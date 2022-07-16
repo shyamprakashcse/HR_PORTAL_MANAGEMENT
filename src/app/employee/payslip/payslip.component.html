@@ -1,0 +1,14 @@
+<nav class="navbar navbar-light bg-primary">
+    <a class="navbar-brand">
+        <img src="/assets/img/kaarlogo.jpg" width="70" height="70" class="d-inline-block align-top" alt=""> <span class="badge bg-danger">KAAR Technologies</span>
+    </a>
+    <!-- <h3>{{'Hi '+EmployeeDetail.EMPLOYEE_NAME+' '+EmployeeDetail.EMP_DESIGNATION}}</h3> -->
+    <h3 class="card-header text-black">Pay Slip Downloading Records </h3>
+    <button class="btn button-34 m-4" (click)="downloadPaySlip()">Download PaySlip</button>
+    <button class="btn button-34 m-4" (click)="back()">Back</button>
+</nav>
+
+
+<div class="payslip" *ngFor="let item of PaySlipData">
+    <h3 class="card-header">{{item.LINE}}</h3>
+</div>

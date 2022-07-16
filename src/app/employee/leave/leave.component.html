@@ -1,0 +1,200 @@
+<nav class="navbar navbar-light bg-yellow-300">
+    <a class="navbar-brand">
+        <img src="/assets/img/kaarlogo.jpg" width="70" height="70" class="d-inline-block align-top" alt=""> <span class="badge bg-success">KAAR Technologies</span>
+    </a>
+    <!-- <h3>{{'Hi '+EmployeeDetail.EMPLOYEE_NAME+' '+EmployeeDetail.EMP_DESIGNATION}}</h3> -->
+    <h3 class="card-header">Leave Records </h3>
+
+    <button class="btn button-34 m-4" (click)="back()">Back</button>
+</nav>
+
+<div class="searcher card-header">
+
+    <input id="search-input" type="number" placeholder="Select Year" class="form-control" min="1900" max="2099" step="1" value="2021" name="Year" required [(ngModel)]="year" />
+
+    <input id="search-input" type="number" placeholder="Select Month" class="form-control" min="1" max="12" step="1" value="1" name="Month" required [(ngModel)]="month" />
+
+    <button class="button-34" type="submit" (click)="fetch()">Fetch </button>
+</div>
+
+
+<div class="download" *ngIf="ReportDisplay">
+    <button type="submit" class="btn btn-dark" (click)="ExportPDF()"> <i class="fa fa-download" style="font-size:30px;color:white"></i> Download Leave Status</button>
+    <!-- <button type="button" class="btn btn-warning"> <i class="fa fa-arrow-circle-left " style="font-size:30px;color:white"></i> Back To Purchase Order</button> -->
+
+</div>
+<div id="print" *ngIf="ReportDisplay">
+
+
+    <div class="container billhead ">
+
+        <div class="left">
+            <img src="/assets/img/kaarlogo.jpg" alt="">
+            <h3>KAAR TECHNOLOGIES</h3>
+            <h6>25,Arcot Road ,Shyamala Tower</h6>
+            <h6>Chennai-600028</h6>
+        </div>
+        <div class="right">
+            <img src="/assets/img/avatar.jpg" alt="">
+            <h3>{{EmployeeDetail["EMPLOYEE_NAME"]}}</h3>
+            <h3>{{EmployeeDetail["EMP_DESIGNATION"]+' in '+EmployeeDetail["ORGANIZATION_TEXT"]}}</h3>
+            <h6>{{EmployeeDetail["STREET_NAME"]}}</h6>
+            <h6>{{EmployeeDetail['EMPLOYEE_CITY']+'-'+EmployeeDetail["EMPLOYEE_POSTALCODE"]}}</h6>
+        </div>
+
+    </div>
+
+    <!-- <div class="card-header">
+    <h2>{{'Purchase Order No :'+GoodsHeader.MAT_DOC_NO}}</h2>
+</div> -->
+
+    <div class="content container">
+        <h2 class="text-center text-danger  card-header">Employee Details</h2>
+        <div class="head flex-row card-header">
+            <h5 class="text-center text-black-700 m-4">{{'Personnal No : '+EmployeeDetail['EMPID']}}</h5>
+            <h5 class="text-center text-blue-700 m-4">{{'Joining Date : '+EmployeeDetail['JOININGDATE']}}</h5>
+        </div>
+        <div class="head flex-row justify-content-around  card-footer bg-yellow-300">
+            <h5 class="text-center text-black-700 m-4">{{'Employee Name : '+EmployeeDetail['EMPLOYEE_NAME']}}</h5>
+            <h5 class="text-center text-blue-700 m-4">{{'Designation : '+EmployeeDetail['EMP_DESIGNATION']}}</h5>
+        </div>
+        <div class="head flex-row justify-content-around  card-footer bg-yellow-300">
+            <h5 class="text-center text-black-700 m-4">{{'Personnel Area : '+EmployeeDetail['PERSONNEL_AREA']}}</h5>
+            <h5 class="text-center text-blue-700 m-4">{{'Practice Region : '+EmployeeDetail['ORGANIZATION_TEXT']}}</h5>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="tab ">
+            <table class="table table-bordered table-striped  table-hover table-responsive-md" id="salordtab">
+                <thead class="bg-primary text-blue-500 border-solid text-capitalize text-md-center border-dark ">
+                    <tr class="hover:bg-primary-reverse">
+                        <th scope="col" class="border-solid border-dark">Employee No</th>
+                        <th scope="col" class="border-solid border-dark">Leave Start Date</th>
+                        <th scope="col" class="border-solid border-dark">Leave End Date</th>
+                        <th scope="col" class="border-solid border-dark">No of days Leave Taken</th>
+                        <th scope="col" class="border-solid border-dark">Leave Reason</th>
+
+                        <th scope="col" class="border-solid border-dark">Leave Type</th>
+                        <th scope="col" class="border-solid border-dark">Leave Type Details</th>
+
+
+
+
+
+
+                    </tr>
+                </thead>
+                <tbody class="active border-solid border-dark text-black-500 font-bold font-roboto
+        text-center">
+                    <tr class="hover:bg-primary-reverse" *ngFor="let item of Leaverecord; let i=index">
+                        <th scope="row" class="border-black-alpha-80">{{item["EMPLOYEE_ID"]}}</th>
+                        <td class="border-black-alpha-80">{{item["LEAVE_START_DATE"] | date:'EEEE d MMMM yyyy'}}</td>
+                        <td class=" border-black-alpha-80">{{item["LEAVE_END_DATE"] | date:'EEEE d MMMM yyyy'}}</td>
+
+                        <td class="border-black-alpha-80">{{item["NO_OF_DAYS_LEAVE"]| number}}</td>
+
+                        <td class="bg-white border-black-alpha-80">{{item['LEAVE_REASON']}}</td>
+                        <td class="bg-white border-black-alpha-80">{{item['LEAVE_TYPE']}}</td>
+                        <td class="bg-white border-black-alpha-80">{{item['LEAVE_TYPE_TEXT']}}</td>
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+    <div class="details container">
+        <p>.</p>
+
+    </div>
+
+    <div class="calculate card ">
+        <div class="card-header">
+            <h3 class="text-center">{{selectedMonth+' Month Leave Details Summary'}}</h3>
+        </div>
+        <div class="card-body">
+
+
+
+            <div class="quant">
+                <h5 class="text-danger">Total No of Unpaid Leave taken:</h5>
+                <h5 class="">{{UPL}}</h5>
+            </div>
+
+            <div class="quant">
+                <h5 class="text-success">Total No of Govt Holiday Leave taken:</h5>
+                <h5 class="">{{GL}}</h5>
+            </div>
+
+            <div class="quant">
+                <h5 class="text-success">Total No of Personal Leave taken:</h5>
+                <h5 class="">{{PL}}</h5>
+            </div>
+
+            <div class="quant">
+                <h5 class="text-success">Total No of Previlage Leave taken:</h5>
+                <h5 class="">{{PAL}}</h5>
+            </div>
+
+            <div class="quant">
+                <h5 class="text-success">Total No of Maternal Leave taken:</h5>
+                <h5 class="">{{ML}}</h5>
+            </div>
+
+
+        </div>
+
+        <div class="card-footer">
+            <h5 class="text-danger">{{'Total No of Leave Taken in this month: '+' '+TotalLeave}}</h5>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="details container">
+        <p>.</p>
+
+    </div>
+
+
+
+
+    <div class="subscribe-us-area container">
+        <div class="container subscribe">
+            <div class="row">
+                <div class="col-lg-12 text-center subscribe-title">
+                    <h4 class="text-uppercase">Kaar Technologies . 25 yrs of excellence in SAP .</h4>
+                    <h5 class="para">Best CRM Pure Play SAP Providers .
+                    </h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container" *ngIf="!ReportDisplay">
+    <h3 class="card-header text-center text-capitalize text-danger">{{'No Leave Record is found on particular date'+' ' }}</h3>
+</div>

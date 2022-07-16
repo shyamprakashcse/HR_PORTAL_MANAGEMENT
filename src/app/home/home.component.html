@@ -1,0 +1,45 @@
+<div class="sidenavheader" id="nav">
+    <div class="burger">
+        <h5 class="headtxt ">Employee DashBoard </h5>
+        <i class="fa fa-bars fa-2x " (click)="toggle()"></i>
+    </div>
+
+</div>
+
+
+<div class="sidenav" id="btn">
+    <div class="panel">
+        <button class="btn button-36" (click)="profile()"><i class="fa fa-user fa-1x m-2" (click)="profile()"></i>Profile</button>
+    </div>
+
+    <div class="panel">
+        <button class="btn button-36" (click)="leaveRecord()"><i class="fa fa-calendar-plus-o fa-1x m-2" (click)="leaveRecord()"></i>Leave Records</button>
+    </div>
+
+    <div class="panel">
+        <button class="button-36 btn" (click)="payslip()"><i class="fa fa-money fa-1x m-2" (click)="payslip()"></i> Pay Slip</button>
+    </div>
+
+    <div class="panel">
+        <button class="button-36 btn" (click)="leaveGraph()"><i class="fa fa-user fa-1x m-2" (click)="leaveGraph()"></i>Leave Analytics</button>
+    </div>
+
+    <div class="panel">
+        <button class="button-36 btn" (click)="logout()"><i class="fa fa-sign-in fa-1x m-2"  (click)="logout()"></i>Logout</button>
+    </div>
+
+</div>
+
+<div class="nav navbar bg-yellow-300 headnav" id="headnav">
+    <a class="navbar-brand">
+        <img src="/assets/img/kaarlogo.jpg" width="70" height="70" class="d-inline-block align-top navimg" alt="">
+    </a>
+    <div class="prof">
+        <h3>{{EmployeeDetail.EMPLOYEE_NAME+' '}}</h3>
+        <h3>{{EmployeeDetail.EMP_DESIGNATION + ' in '+' '+EmployeeDetail.ORGANIZATION_TEXT}}</h3>
+    </div>
+
+
+
+
+</div>
